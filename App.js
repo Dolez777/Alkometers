@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Button, StyleSheet, } from 'react-native';
 import NumericInput from 'react-native-numeric-input'
-import RadioGroup from 'react-native-radio-buttons-group';
-import RadioButton from 'react-native-paper/lib/typescript/components/RadioButton/RadioButton';
+import {RadioButton} from "react-native-paper"
 
 
-import ThemeSwitch from './components/ThemeSwitch';
-import styles from './styles/style';
+/* import ThemeSwitch from './components/ThemeSwitch';
+ */import styles from './styles/style';
+
+
+
+
 
 const BreathalyzerApp = () => {
 
@@ -14,6 +17,17 @@ const BreathalyzerApp = () => {
   const [bottles, setBottles] = useState(0);
   const [hours, setHours] = useState(0);
   const [gender, setGender] = useState('male');
+}
+
+  const calculateBAC = () => {
+    const litres = bottles * 0.33;
+    const grams = litres * 8 * 4.5;
+    const burning = weight / 10;
+    const gramsLeft = grams - burning * time;
+    const result = gender === 'male' ? gramsLeft / (weight * 0.7) : gramsLeft / (weight * 0.6);
+    return result.toFixed(2);
+  };
+  
 
   /** const ThemeSwitch = () => {
     const systemTheme = useColorScheme();
@@ -56,21 +70,9 @@ const BreathalyzerApp = () => {
     alert(`Your blood alcohol level is ${result.toFixed(2)}`);
   } */ 
 
-
-
-  const calculateBAC = () => {
-    const litres = bottles * 0.33;
-    const grams = litres * 8 * 4.5;
-    const burning = weight / 10;
-    const gramsLeft = grams - burning * time;
-    const result = gender === 'male' ? gramsLeft / (weight * 0.7) : gramsLeft / (weight * 0.6);
-    return result.toFixed(2);
-  };
-
-
     <ScrollView style={styles.scrolling}>
        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin:50 }}>
-    <Text>  style={styles.text}>Weight (kg)</Text>
+    <Text  style={styles.text}>Weight (kg)</Text>
       <TextInput
         style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginBottom: 20 }}
         onChangeText={text => setWeight(text)}
@@ -106,8 +108,14 @@ const BreathalyzerApp = () => {
 <View style={styles.button}>
  <RadioButton value="Male">
   </RadioButton> 
+  <Text>Male</Text>
 </View>
- 
+<View style={styles.button}>
+ <RadioButton value="Female">
+  </RadioButton> 
+  <Text>Male</Text>
+
+</View>
 
      {/*  <Text>Gender</Text>
       <View style={{ flexDirection: 'row' }}>
@@ -118,12 +126,12 @@ const BreathalyzerApp = () => {
           <Text style={styles.text}>Female</Text>
         </TouchableOpacity>
       </View> */}
-
+  <View>
       <TouchableOpacity onPress={calculateBAC}>
         <Text style={styles.text}>Calculate</Text>
       </TouchableOpacity>
     </View> 
     </ScrollView>
-  
-}
+  );
+};
 export default BreathalyzerApp;

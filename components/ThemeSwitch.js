@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Switch } from 'react-native';
+/** import React, { useState } from 'react';
 import { useColorScheme } from 'react-native-appearance';
 
 const ThemeSwitch = () => {
@@ -15,7 +14,7 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <ThemeSwitch
+    <ThemeSwitch 
       value={isDarkMode}
       onValueChange={toggleSwitch}
       trackColor={{ false: '#767577', true: '#81b0ff' }}
@@ -26,3 +25,4 @@ const ThemeSwitch = () => {
 };
 
 export default ThemeSwitch;
+*/

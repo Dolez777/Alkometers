@@ -1,20 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  scrolling:{
+    backgroundColor: '#222222'
+  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#1E1E1E',
   },
   text: {
     fontSize: 16,
     lineHeight: 24,
-    marginBottom: 10,
+    margin: 15,
    borderColor: 'gray',
+   color: 'white',
   },
   textInput: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'black',
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 20,

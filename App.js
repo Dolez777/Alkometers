@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Button, StyleSheet, } from 'react-native';
+import NumericInput from 'react-native-numeric-input'
+import RadioGroup from 'react-native-radio-buttons-group';
+import RadioButton from 'react-native-paper/lib/typescript/components/RadioButton/RadioButton';
 
-//import color  from "./colors/color";
+
 import ThemeSwitch from './components/ThemeSwitch';
-//import {style} from './styles/style';
+import styles from './styles/style';
 
 const BreathalyzerApp = () => {
 
@@ -30,14 +33,14 @@ const BreathalyzerApp = () => {
         onValueChange={toggleSwitch}
         trackColor={{ false: '#767577', true: '#81b0ff' }}
         thumbColor={isDarkMode ? '#f5dd4b' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
+        backgroundColor="#3e3e3e"
       />
     );
   };
 
 */ 
 
-  const calculate = () => {
+ /*  const calculateOld = () => {
     const grams = bottles * 4.8;
     const burning = weight / 10;
     const gramsLeft = grams - (burning * hours);
@@ -51,53 +54,76 @@ const BreathalyzerApp = () => {
       result = 0;
     }
     alert(`Your blood alcohol level is ${result.toFixed(2)}`);
-  }
+  } */ 
 
 
-  return (
-    <ScrollView style={style.container}>
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin:50 }}>
-      <Text style={style.text}>Weight (kg)</Text>
+
+  const calculateBAC = () => {
+    const litres = bottles * 0.33;
+    const grams = litres * 8 * 4.5;
+    const burning = weight / 10;
+    const gramsLeft = grams - burning * time;
+    const result = gender === 'male' ? gramsLeft / (weight * 0.7) : gramsLeft / (weight * 0.6);
+    return result.toFixed(2);
+  };
+
+
+    <ScrollView style={styles.scrolling}>
+       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin:50 }}>
+    <Text>  style={styles.text}>Weight (kg)</Text>
       <TextInput
         style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginBottom: 20 }}
         onChangeText={text => setWeight(text)}
         value={weight}
         keyboardType={'numeric'}
       />
-      
+      </View>
       <Text>Bottles</Text>
       <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity onPress={() => setBottles(bottles + 1)}>
+        <NumericInput onPress={() => setBottles(bottles + 1)}>
           <Text>+</Text>
-        </TouchableOpacity>
+        </NumericInput>
         <Text>{bottles}</Text>
-        <TouchableOpacity onPress={() => setBottles(bottles - 1)}>
+        <NumericInput onPress={() => setBottles(bottles - 1)}>
           <Text>-</Text>
-        </TouchableOpacity>
+        </NumericInput>
       </View>
       <Text>Hours</Text>
       <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity onPress={() => setHours(hours + 1)}>
-          <Text>+</Text>
-        </TouchableOpacity>
+        
+        <NumericInput style={styles.button} onPress={() => setHours(hours + 1)}>
+        </NumericInput>
         <Text>{hours}</Text>
         <TouchableOpacity onPress={() => setHours(hours - 1)}>
-          <Text>-</Text>
         </TouchableOpacity>
-      </View>
-      <Text>Gender</Text>
+      </View> 
+      <View style={{ flexDirection: 'row' }}>
+     
+<View>
+     
+    </View>
+<RadioButton.Group onValueChange={newValue => setGender(newValue)} value={gender}></RadioButton.Group>
+<View style={styles.button}>
+ <RadioButton value="Male">
+  </RadioButton> 
+</View>
+ 
+
+     {/*  <Text>Gender</Text>
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity onPress={() => setGender('male')}>
-          <Text>Male</Text>
+          <Text style={styles.text}>Male</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setGender('female')}>
-          <Text>Female</Text>
+          <Text style={styles.text}>Female</Text>
         </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={calculate}>
-        <Text>Calculate</Text>
+      </View> */}
+
+      <TouchableOpacity onPress={calculateBAC}>
+        <Text style={styles.text}>Calculate</Text>
       </TouchableOpacity>
-    </View>
+    </View> 
     </ScrollView>
-  );
+  
 }
+export default BreathalyzerApp;

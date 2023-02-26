@@ -18,9 +18,8 @@
     "react-native-appearance": "^0.3.4",
     "react-native-numeric-input": "^1.9.1",
     "react-native-paper": "^5.2.0",
-  },
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
-}
+  "private": "true"
+}}
